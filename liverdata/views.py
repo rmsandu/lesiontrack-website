@@ -6,12 +6,8 @@ from .models import Patient
 
 def index(request):
     all_patients = Patient.objects.all()
-    template = loader.get_template('liverdata/index.html')
-    # create dictionary for template
-    context = {
-        'all_patients' : all_patients,
-    }
-    return HttpResponse(template.render(context,request))
+    context = {'all_patients' : all_patients}
+    return render(request, 'liverdata/index.html', context)
 
 def detail(request,patient_id):
     return HttpResponse("<h2>Details for Patient_ID: " + str(patient_id) + "</h2>")
