@@ -14,4 +14,4 @@ def detail(request,patient_id):
         patient = Patient.objects.get(pk=patient_id)
     except Patient.DoesNotExist:
         raise Http404("Patient does not exist")
-    return render(request, 'liverdata/detail.html', {'patient' : patient})
+    return render(request, 'liverdata/lesion_detail.html', {'patient' : patient})
