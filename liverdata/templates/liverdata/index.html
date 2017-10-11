@@ -1,0 +1,11 @@
+{% if all_patients %}
+
+  <ul>
+    {% for patient in all_patients %}
+    <li><a href='/liverdata/{{ patient.id }}/'>{{ patient.patient_name }}</a></li>
+    {% endfor %}
+  </ul>
+
+{% else %}
+  <h3> No patient details </h3>
+{% endif %}
