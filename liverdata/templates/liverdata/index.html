@@ -1,11 +1,29 @@
-{% if all_patients %}
-<h3> here are all my patients! </h3>
-  <ul>
-    {% for patient in all_patients %}
-    <li><a href='/liverdata/{{ patient.id }}/'>{{ patient.patient_name }}</a></li>
-    {% endfor %}
-  </ul>
+{# Load the tag library #}
+{% load bootstrap3 %}
 
+{# Load CSS and JavaScript #}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+{# Display django.contrib.messages as Bootstrap alerts #}
+{% bootstrap_messages %}
+
+{# Read the documentation for more information #}
+
+{% block title %}
+    <h1>Patients</h1>
+{% endblock %}
+
+{% block content %}
+{% if all_patients %}
+  <table class="table">
+      {% for patient in all_patients %}
+      <tr>
+        <td><a href='/liverdata/{{ patient.id }}/'>{{ patient.patient_name }}</a></td>
+    </tr>
+      {% endfor %}
+    </table>
 {% else %}
-  <h3> No patient details </h3>
+  <h3> No patients are available</h3>
 {% endif %}
+{% endblock %}

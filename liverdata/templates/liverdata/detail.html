@@ -1,1 +1,16 @@
-{{ patient }}
+{# Load the tag library #} {% load bootstrap3 %} {# Load CSS and JavaScript #} {% bootstrap_css %} {% bootstrap_javascript %} {# Display django.contrib.messages as Bootstrap alerts #} {% bootstrap_messages %}
+
+{% block title %}
+<h1> {{patient.patient_name}} </h1> {% endblock %}
+{% block content %}
+{% if patient.lesion_set.all %}
+<table class="table">
+  {% for lesion in patient.lesion_set.all %}
+  <tr>
+    <td> {{lesion.lesion_name}} - {{lesion.lesion_size}} </td>
+  </tr>
+  {% endfor %}
+</table>
+{% else %}
+  <h3> No lesions are available</h3> {% endif %}
+{% endblock %}

@@ -19,9 +19,11 @@ class Lesion(models.Model):
     def __str__(self):
         return self.lesion_name
 
-
 class Treatment(models.Model):
     lesion = models.ForeignKey(Lesion, on_delete=models.CASCADE)
     treatment_name = models.CharField(max_length=10) # rfa, mwa
     treatment_type = models.CharField(max_length=10) # intervention, laparoscopy, open
     treatment_date = models.DateTimeField('treatment date')
+
+    def __str__(self):
+        return self.treatment_name
