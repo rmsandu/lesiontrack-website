@@ -19,7 +19,7 @@
   <table class="table">
       {% for patient in all_patients %}
       <tr>
-        <td><a href='/liverdata/{{ patient.id }}/'>{{ patient.patient_name }}</a></td>
+        <td><a href="{% url 'patientdetail' patient.id %}">{{ patient.patient_name }}</a></td>
     </tr>
       {% endfor %}
     </table>
