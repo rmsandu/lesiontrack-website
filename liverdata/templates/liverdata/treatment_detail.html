@@ -1,18 +1,21 @@
-{# Load the tag library #} {% load bootstrap3 %} {# Load CSS and JavaScript #} {% bootstrap_css %} {% bootstrap_javascript %} {# Display django.contrib.messages as Bootstrap alerts #} {% bootstrap_messages %}
+{% extends 'liverdata/base.html' %}
 
-{% block title %}
-<h1> {{patient.patient_name}} - {{lesion.lesion_name}}  </h1>
-{% endblock %}
 
-{% block content %}
-{% if lesion.treatment_set.all %}
-<table class="table">
-  {% for treatment in lesion.treatment_set.all %}
-  <tr>
-    <td> {{treatment.treatment_name}} - {{treatment.treatment_date}} </td>
-  </tr>
-  {% endfor %}
-</table>
-{% else %}
-  <h3> No treatments are available</h3> {% endif %}
+{% block body %}
+  {% block title %}
+  <h1> {{patient.patient_name}} - {{lesion.lesion_name}}  </h1>
+  {% endblock %}
+
+  {% block content %}
+  {% if lesion.treatment_set.all %}
+  <table class="table">
+    {% for treatment in lesion.treatment_set.all %}
+    <tr>
+      <td> {{treatment.treatment_name}} - {{treatment.treatment_date}} </td>
+    </tr>
+    {% endfor %}
+  </table>
+  {% else %}
+    <h3> No treatments are available</h3> {% endif %}
+  {% endblock %}
 {% endblock %}

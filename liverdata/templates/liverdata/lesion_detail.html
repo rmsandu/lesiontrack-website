@@ -1,16 +1,19 @@
-{# Load the tag library #} {% load bootstrap3 %} {# Load CSS and JavaScript #} {% bootstrap_css %} {% bootstrap_javascript %} {# Display django.contrib.messages as Bootstrap alerts #} {% bootstrap_messages %}
+{% extends 'liverdata/base.html' %}
 
-{% block title %}
-<h1> {{patient.patient_name}} </h1> {% endblock %}
-{% block content %}
-{% if patient.lesion_set.all %}
-<table class="table">
-  {% for lesion in patient.lesion_set.all %}
-  <tr>
-    <td><a href='/liverdata/{{ patient.id }}/{{ lesion.id }}/'> {{ lesion.lesion_name }}</a></td>
-  </tr>
-  {% endfor %}
-</table>
-{% else %}
-  <h3> No lesions are available</h3> {% endif %}
+
+{% block body %}
+  {% block title %}
+  <h1> {{patient.patient_name}} </h1> {% endblock %}
+  {% block content %}
+  {% if patient.lesion_set.all %}
+  <table class="table">
+    {% for lesion in patient.lesion_set.all %}
+    <tr>
+      <td><a href='/liverdata/{{ patient.id }}/{{ lesion.id }}/'> {{ lesion.lesion_name }}</a></td>
+    </tr>
+    {% endfor %}
+  </table>
+  {% else %}
+    <h3> No lesions are available</h3> {% endif %}
+  {% endblock %}
 {% endblock %}
