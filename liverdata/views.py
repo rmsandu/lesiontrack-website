@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.http import Http404
 from django.template import loader
 from .models import Patient, Lesion, Treatment
@@ -6,14 +6,10 @@ from .models import Patient, Lesion, Treatment
 
 def index(request):
     all_patients = Patient.objects.all()
-    #context = {'all_patients' : all_patients}
     return render(request, 'liverdata/index.html', {'all_patients' : all_patients})
 
 def detail(request,patient_id):
-    try:
-        patient = Patient.objects.get(pk=patient_id)
-    except Patient.DoesNotExist:
-        raise Http404("Patient does not exist")
+    patient = get_object_or_404(Patient, pk=patient_id)
     return render(request, 'liverdata/lesion_detail.html', {'patient' : patient})
 
 def detail1(request,patient_id, lesion_id):

@@ -12,7 +12,6 @@ class Patient(models.Model):
 class Lesion(models.Model):
     patient = models.ForeignKey(Patient, on_delete = models.CASCADE)
     lesion_name = models.CharField(max_length=250) # change to Choice Field
-    # lesion_type = do we need this??
     lesion_size = models.IntegerField(default=0)
     lesion_biopsy = models.CharField(max_length=1) # choice field, y/n
 
@@ -21,7 +20,8 @@ class Lesion(models.Model):
 
 class Treatment(models.Model):
     lesion = models.ForeignKey(Lesion, on_delete=models.CASCADE)
-    treatment_name = models.CharField(max_length=10) # rfa, mwa
+    #patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
+    treatment_name = models.CharField(max_length=10) # Change to Choice Field rfa, mwa
     treatment_type = models.CharField(max_length=10) # intervention, laparoscopy, open
     treatment_date = models.DateTimeField('treatment date')
 
