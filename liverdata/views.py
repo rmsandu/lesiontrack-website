@@ -16,10 +16,10 @@ def detail(request,patient_id):
         raise Http404("Patient does not exist")
     return render(request, 'liverdata/lesion_detail.html', {'patient' : patient})
 
-def detail1(request, lesion_id):
+def detail1(request,patient_id, lesion_id):
         try:
             lesion = Lesion.objects.get(pk=lesion_id)
             patient = Patient.objects.get(pk=patient_id)
         except Lesion.DoesNotExist:
             raise Http404("Treatment does not exist")
-        return render(request, 'liverdata/treatment_detail.html', {'lesion' : lesion})
+        return render(request, 'liverdata/treatment_detail.html', {'patient' : patient, 'lesion': lesion})
