@@ -1,8 +1,10 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import Http404
 from django.template import loader
+from django.views import generic
 from .models import Patient, Lesion, Treatment
-# Create your views here.
+
+
 
 def index(request):
     all_patients = Patient.objects.all()

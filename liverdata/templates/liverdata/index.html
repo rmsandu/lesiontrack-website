@@ -1,15 +1,48 @@
 {% extends 'liverdata/base.html' %}
 
-{% block body %}
-  {% block title %}
-  <h1>Patients</h1> {% endblock %} {% block content %} {% if all_patients %}
-  <table class="table">
-    {% for patient in all_patients %}
-    <tr>
-      <td><a href="{% url 'liverdata:patientdetail' patient.id %}">{{ patient.patient_name }}</a></td>
-    </tr>
-    {% endfor %}
-  </table>
-  {% else %}
-  <h3> No patients are available</h3> {% endif %} {% endblock %}
-{% endblock %}
+
+{% block body %} {% block title %}
+<h2>All Patients </h2>{% endblock %}
+<div class="container-fluid patients-container">
+  <div class="row content">
+    <div class="col-sm-2 sidenav">
+      <!-- <div  class = "well">
+        <p><a href="#">Link</a></p>
+        <p><a href="#">Link</a></p>
+        <p><a href="#">Link</a></p>
+    </div> -->
+    </div>
+
+    <div class="col-sm-8 text-left">
+      <div class="table-responsive">
+        <table class="table table-striped table-bordered">
+          <thead>
+            <tr>
+              <th> Nr </th>
+              <th> Name </th>
+              <th> Study </th>
+            </tr>
+          </thead>
+
+          <tbody>
+            {% if all_patients %}
+             {% for patient in all_patients %}
+            <tr>
+              <td>{{ forloop.counter }}</td>
+              <td><a href="{% url 'liverdata:patientdetail' patient.id %}">{{ patient.patient_name }}</a></td>
+              <td><a href="#"></a></td>
+            </tr>
+            {% endfor %}
+          </tbody>
+          {% else %}
+          <h3> No patients are available</h3> {% endif %}
+        </table>
+      </div>
+    </div>
+
+    <div class="col-sm-2 sidenav">
+      <!-- <div class="well">
+        <p>Link</p>
+      </div> -->
+    </div>
+    {% endblock %}

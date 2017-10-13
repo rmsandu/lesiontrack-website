@@ -1,6 +1,22 @@
 body {
-  background-color: #F0F8FF
+  background-color: white;
 }
+
+.table-striped>tbody>tr:nth-child(odd)>td,
+.table-striped>tbody>tr:nth-child(odd)>th {
+   background-color: #F0FFFF; // Choose your own color here
+ }
+
+/* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+ .row.content {height: 450px}
+
+ /* Set gray background color and 100% height */
+ .sidenav {
+   padding-top: 20px;
+   background-color: white;
+   height: 100%;
+ }
+
 
 .navbar {
       margin-bottom: 0;
