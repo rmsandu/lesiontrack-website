@@ -3,9 +3,11 @@ from django.db import models
 # Create your models here.
 class Patient(models.Model):
     patient_name = models.CharField(max_length=20)
-    gender = models.CharField(choices=(('F','Female'), ('M','Male')), max_length=1, default='F')
-    study_site = models.CharField(max_length=100, default='Bern')
-    study_name = models.CharField(max_length=100, blank=True, null=True)
+    # gender = models.CharField(choices=(('F','Female'), ('M','Male')), max_length=1, blank=True)
+    yearofbirth = models.PositiveIntegerField(null= True, blank=True)
+    study_institution = models.CharField(max_length=100, default='Bern', blank=True) #optional field
+    study_name = models.CharField(max_length=100, default='ClinicalStudyBern', blank=True) # optional field
+
 
     def __str__(self):
         return self.patient_name
@@ -15,16 +17,16 @@ class LesionType(models.Model):
     lesiontype_shortname = models.CharField(max_length=5)
 
     def __str__(self):
-        return "{0} ({1})".format(self.lesiontype_name, self.lesiontype_shortname)
+        return "{0}".format(self.lesiontype_shortname)
 
 class Lesion(models.Model):
     patient = models.ForeignKey(Patient, on_delete = models.CASCADE)
-    lesion_size = models.DecimalField(max_digits=10, decimal_places=2)
+    lesion_volume_ml = models.DecimalField(max_digits=10, decimal_places=2, blank=True) #optional field
     lesion_biopsy = models.BooleanField(default=False) # choice field, y/n
-    lesiontype = models.ForeignKey(LesionType, on_delete = models.PROTECT, null=True, blank=False)
+    lesiontype = models.ForeignKey(LesionType, on_delete = models.PROTECT, null=True, blank=False) # can be non-existent, but not blank
 
     def __str__(self):
-        return  'Patient Name: ' + str(self.patient) + '; Lesion: ' + str(self.lesiontype)
+        return "{0} - {1} - {2}".format(self.patient, self.lesiontype, self.id)
 
 class TreatmentSession(models.Model):
     patient = models.ForeignKey(Patient, on_delete = models.CASCADE)
@@ -40,7 +42,8 @@ class TreatmentSession(models.Model):
         max_length=10) # intervention, laparoscopy, open, Resection
 
     def __str__(self):
-        return 'Patient:' + str(self.patient) + '; TreatmentSession: ' + str(self.treatment_nr)
+        return "{0} - {1} - {2}".format(self.patient, self.treatment_nr, self.treatment_type)
+
 
 class TreatmentName(models.Model):
     treatment_name = models.CharField(max_length=100)
@@ -49,13 +52,19 @@ class TreatmentName(models.Model):
     def __str__(self):
         return self.short_name
 
+    class Meta:
+        verbose_name_plural = "TreatmentName"
+
+
 class Treatment(models.Model):
     treatmentsession = models.ForeignKey(TreatmentSession, on_delete = models.CASCADE)
     lesion = models.ForeignKey(Lesion, on_delete=models.CASCADE)
-    treatmentname = models.ForeignKey(TreatmentName, on_delete = models.PROTECT, null=True)
+    treatmentname = models.ForeignKey(TreatmentName, on_delete = models.PROTECT, null=True, blank=False)
 
     def __str__(self):
-        return 'Lesion:' + str(self.lesion) + '; TreatmentSession: ' + str(self.treatmentsession)
+        return "{0} - ({1}) : {2}".format(self.treatmentsession, self.lesion, self.treatmentname)
+
+
 
 class Device(models.Model):
     manufacturer = models.CharField(max_length=200)
@@ -63,7 +72,11 @@ class Device(models.Model):
     others = models.TextField()
 
     def __str__(self):
-        return 'Device Name: ' + self.manufacturer + 'Needle_Name:' + self.needle_name
+        return "{0} ({1})".format(self.manufacturer, self.needle_name)
+
+    class Meta:
+        verbose_name_plural = "Device"
+
 
 
 class MWA(models.Model):
@@ -85,7 +98,7 @@ class RFA(models.Model):
     time_duration = models.DurationField()
 
     def __str__(self):
-        return 'Treamtent Name:' + RFA.__name__
+        return 'Treamment Name:' + RFA.__name__
 
     class Meta:
         verbose_name_plural = "RFA"
