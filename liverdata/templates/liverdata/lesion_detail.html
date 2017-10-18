@@ -19,6 +19,7 @@
               <th> Nr </th>
               <th> Lesion Name </th>
               <th> Lesion Size </th>
+              <th> Lesion Biopsy </th>
               <th> Treatment Details </th>
             </tr>
           </thead>
@@ -30,6 +31,7 @@
               <td>{{ forloop.counter }}</td>
               <td><a href='/liverdata/{{ patient.id }}/{{ lesion.id }}/'> {{ lesion.lesion_name }}</a></td>
               <td>{{ lesion.lesion_size }}  </td>
+              <td> {{ lesion.lesion_biopsy}} </td>
               <td><a href="/liverdata/{{ patient.id }}/{{ lesion.id }}/" class="btn btn-primary btn-sm" role="button">View Details</a></td>
             </tr>
             {% endfor %}
