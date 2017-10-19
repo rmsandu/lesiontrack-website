@@ -20,7 +20,8 @@
             <tr>
               <th> Nr </th>
               <th> Name </th>
-              <th> Study </th>
+              <th> Study Institution</th>
+              <th> Study Name</th>
               <th> Details </th>
             </tr>
           </thead>
@@ -31,7 +32,8 @@
             <tr>
               <td>{{ forloop.counter }}</td>
               <td><a href="{% url 'liverdata:patientdetail' patient.id %}">{{ patient.patient_name }}</a></td>
-              <td>Bern</td>
+              <td>{{ patient.study_institution}}</td>
+              <td>{{ patient.study_name}}</td>
               <td><a href="{% url 'liverdata:patientdetail' patient.id %}" class="btn btn-primary btn-sm" role="button">View Details</a></td>
             </tr>
             {% endfor %}

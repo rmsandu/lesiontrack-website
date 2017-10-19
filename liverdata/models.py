@@ -23,7 +23,7 @@ class Lesion(models.Model):
     patient = models.ForeignKey(Patient, on_delete = models.CASCADE)
     lesion_volume_ml = models.DecimalField(max_digits=10, decimal_places=2, blank=True) #optional field
     lesion_biopsy = models.BooleanField(default=False) # choice field, y/n
-    lesiontype = models.ForeignKey(LesionType, on_delete = models.PROTECT, null=True, blank=False) # can be non-existent, but not blank
+    lesiontype = models.OneToOneField(LesionType, on_delete = models.PROTECT, null=True, blank=False) # can be non-existent, but not blank
 
     def __str__(self):
         return "{0} - {1} - {2}".format(self.patient, self.lesiontype, self.id)
@@ -59,7 +59,7 @@ class TreatmentName(models.Model):
 class Treatment(models.Model):
     treatmentsession = models.ForeignKey(TreatmentSession, on_delete = models.CASCADE)
     lesion = models.ForeignKey(Lesion, on_delete=models.CASCADE)
-    treatmentname = models.ForeignKey(TreatmentName, on_delete = models.PROTECT, null=True, blank=False)
+    treatmentname = models.OneToOneField(TreatmentName, on_delete = models.PROTECT, null=True, blank=False)
 
     def __str__(self):
         return "{0} - ({1}) : {2}".format(self.treatmentsession, self.lesion, self.treatmentname)
@@ -81,7 +81,7 @@ class Device(models.Model):
 
 class MWA(models.Model):
     treatment = models.ForeignKey(Treatment, blank=True, null=True, on_delete=models.CASCADE)
-    device = models.ForeignKey(Device, blank=True, null=True, on_delete=models.CASCADE)
+    device = models.OneToOneField(Device, blank=True, null=True, on_delete=models.CASCADE)
     power = models.PositiveIntegerField() # power or temperature applied
     time_duration = models.DurationField()
 
@@ -93,7 +93,7 @@ class MWA(models.Model):
 
 class RFA(models.Model):
     treatment = models.ForeignKey(Treatment, blank=True, null=True, on_delete=models.CASCADE)
-    device = models.ForeignKey(Device, blank=True, null=True, on_delete=models.CASCADE)
+    device = models.OneToOneField(Device, blank=True, null=True, on_delete=models.CASCADE)
     power = models.PositiveIntegerField() # power or temperature applied
     time_duration = models.DurationField()
 
@@ -105,7 +105,7 @@ class RFA(models.Model):
 
 class IRE(models.Model):
     treatment = models.ForeignKey(Treatment, blank=True, null=True, on_delete=models.CASCADE)
-    device = models.ForeignKey(Device, blank=True, null=True, on_delete=models.CASCADE)
+    device = models.OneToOneField(Device, blank=True, null=True, on_delete=models.CASCADE)
     power = models.PositiveIntegerField() # power or temperature applied
     time_duration = models.DurationField()
 

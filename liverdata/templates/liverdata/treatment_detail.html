@@ -28,9 +28,9 @@
              {% for treatment in lesion.treatment_set.all %}
             <tr>
               <td>{{ forloop.counter }}</td>
-              <td>{{ treatment.treatment_name }}</td>
-              <td>{{ treatment.treatment_type }} </td>
-              <td>{{ treatment.treatment_date }}</td>
+              <td>{{ treatment.treatmentname }}</td>
+              <td>{{ treatment.treatmentsession }} </td>
+              <td>{{ treatment.treatmentsession_date }}</td>
             </tr>
             {% endfor %}
           </tbody>
