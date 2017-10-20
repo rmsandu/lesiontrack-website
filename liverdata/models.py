@@ -9,9 +9,13 @@ class Patient(models.Model):
     study_institution = models.CharField(max_length=100, default='Bern', blank=True) #optional field
     study_name = models.CharField(max_length=100, default='ClinicalStudyBern', blank=True) # optional field
 
+    class Meta:
+        ordering = ["patient_name", "patient_name"]
 
     def __str__(self):
         return self.patient_name
+
+
 
 class LesionType(models.Model):
     lesiontype_name = models.CharField(max_length=50)
@@ -21,21 +25,23 @@ class LesionType(models.Model):
         return "{0}".format(self.lesiontype_shortname)
 
 class Lesion(models.Model):
-    patient = models.ForeignKey(Patient, on_delete = models.CASCADE)
+    patient = models.ForeignKey(Patient, on_delete = models.CASCADE, blank=True, null=True)
     lesiontype = models.ForeignKey(LesionType, on_delete = models.PROTECT, null=True, blank=False) # can be non-existent, but not blank
     lesion_volume_ml = models.DecimalField(max_digits=10, decimal_places=2, blank=True) #optional field
     lesion_biopsy = models.BooleanField(default=False) # choice field, y/n
     lesion_nr = models.PositiveIntegerField(null=True, blank=True)
 
+    class Meta:
+            ordering = ["patient", "lesion_nr"]
 
     def __str__(self):
-        return "{0} - {1} - {2}".format(self.patient, self.lesiontype, self.id)
+        return "{0} - {1} - {2}".format(self.patient,self.lesiontype, self.lesion_nr)
 
 
 class TreatmentSession(models.Model):
     patient = models.ForeignKey(Patient, on_delete = models.PROTECT, blank=True, null=True)
     treatmentsession_date = models.DateTimeField('Treatment Session Date:')
-    treatment_nr = models.PositiveIntegerField()
+    treatment_nr = models.PositiveIntegerField() # change to blank=true, null=true
     treatment_type = models.CharField(choices=(
         ('IR', 'Intervention'),
         ('LP', 'Laparoscopy'),
@@ -45,8 +51,11 @@ class TreatmentSession(models.Model):
         ),
         max_length=10) # intervention, laparoscopy, open, Resection
 
+    class Meta:
+        ordering = ["treatment_type", "treatmentsession_date"]
+
     def __str__(self):
-        return "{0} - {1} - {2}".format(self.patient, self.treatment_nr, self.treatment_type)
+        return "{0} - {1} - {2}".format(self.patient, self.treatment_type, self.treatmentsession_date)
 
 
 class TreatmentName(models.Model):
@@ -66,7 +75,7 @@ class Treatment(models.Model):
     lesion = models.ForeignKey(Lesion, on_delete=models.CASCADE)
 
     def __str__(self):
-        return "{0} - ({1}) : {2}".format(self.treatmentsession.patient.patient_name, self.treatmentsession.treatmentsession_date, self.treatmentname)
+        return  "{0} - {1} - {2}".format(self.treatmentsession.treatmentsession_date, self.treatmentname, self.lesion)
 
 
 
