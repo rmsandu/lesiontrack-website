@@ -62,7 +62,7 @@ class Treatment(models.Model):
     treatmentname = models.OneToOneField(TreatmentName, on_delete = models.PROTECT, null=True, blank=False)
 
     def __str__(self):
-        return "{0} - ({1}) : {2}".format(self.treatmentsession, self.lesion, self.treatmentname)
+        return "{0} - ({1}) : {2}".format(self.treatmentsession.patient.patient_name, self.treatmentsession.treatmentsession_date, self.treatmentname)
 
 
 

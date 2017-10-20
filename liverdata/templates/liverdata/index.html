@@ -2,7 +2,7 @@
 
 
 {% block body %} {% block title %}
-<h2>All Patients </h2>{% endblock %}
+<h2>A lot of nothing.... </h2>{% endblock %}
 <div class="container-fluid patients-container">
   <div class="row content">
     <div class="col-sm-2 sidenav">
@@ -11,38 +11,11 @@
         <p><a href="#">Link</a></p>
         <p><a href="#">Link</a></p>
     </div> -->
-    </div>
+  </div>
 
-    <div class="col-sm-8 text-left">
-      <div class="table-responsive">
-        <table class="table table-striped table-bordered">
-          <thead>
-            <tr>
-              <th> Nr </th>
-              <th> Name </th>
-              <th> Study Institution</th>
-              <th> Study Name</th>
-              <th> Details </th>
-            </tr>
-          </thead>
-
-          <tbody>
-            {% if all_patients %}
-             {% for patient in all_patients %}
-            <tr>
-              <td>{{ forloop.counter }}</td>
-              <td><a href="{% url 'liverdata:patientdetail' patient.id %}">{{ patient.patient_name }}</a></td>
-              <td>{{ patient.study_institution}}</td>
-              <td>{{ patient.study_name}}</td>
-              <td><a href="{% url 'liverdata:patientdetail' patient.id %}" class="btn btn-primary btn-sm" role="button">View Details</a></td>
-            </tr>
-            {% endfor %}
-          </tbody>
-          {% else %}
-          <h3> No patients are available</h3> {% endif %}
-        </table>
-      </div>
-    </div>
+  <div class="col-sm-8 text-left">&nbsp;
+    WHATEVER YOU WANT TO PUT here
+  </div>
 
     <div class="col-sm-2 sidenav">
       <!-- <div class="well">

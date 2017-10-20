@@ -7,7 +7,9 @@ urlpatterns = [
     # /liverdata/
     url(r'^$', views.index, name='index'),
     # /liverdata/713/
-    url(r'^(?P<patient_id>[0-9]+)/$', views.detail, name='patientdetail'),
+    url(r'patient_list', views.patient_list, name='patient_list'),
+    url(r'patient/(?P<patient_id>[0-9]+)/$', views.patient_detail, name='patient_detail'),
+
     # /liverdata/patientxyx/lesionxyz/
-    url(r'^(?P<patient_id>[0-9]+)/(?P<lesion_id>[0-9]+)/$', views.detail1, name='lesiondetail')
+    url(r'lesion/(?P<lesion_id>[0-9]+)/$', views.lesion_detail, name='lesion_detail')
 ]

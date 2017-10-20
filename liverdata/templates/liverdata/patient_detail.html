@@ -7,8 +7,7 @@
   <div class="row content">
     <div class="col-sm-2 sidenav">
       <div  class = "well">
-        <p style="color:MidnightBlue; font-size:14px; font-weight:bold">Patient - {{ lesion.patient.patient_name}} </p>
-        <p style="color:MidnightBlue; font-size:14px; font-weight:bold">Lesion - {{ lesion.lesiontype}} </p>
+        <p style="color:MidnightBlue; font-size:14px; font-weight:bold">Patient - {{ patient.patient_name}} </p>
     </div>
     </div>
 
@@ -18,25 +17,27 @@
           <thead>
             <tr>
               <th> Nr </th>
-              <th> Treatment Name </th>
-              <th> Treatment Type </th>
-              <th> Treatment Date </th>
+              <th> Lesion Name </th>
+              <th> Lesion Size </th>
+              <th> Lesion Biopsy </th>
+              <th> Treatment Details </th>
             </tr>
           </thead>
 
           <tbody>
-            {% if lesion.treatment_set.all %}
-             {% for treatment in lesion.treatment_set.all %}
+            {% if patient.lesion_set.all %}
+             {% for lesion in patient.lesion_set.all %}
             <tr>
               <td>{{ forloop.counter }}</td>
-              <td>{{ treatment.treatmentname }}</td>
-              <td>{{ treatment.treatmentsession }} </td>
-              <td>{{ treatment.treatmentsession_date }}</td>
+              <td><a href="{% url 'liverdata:lesion_detail' lesion.id %}"> {{ lesion.lesiontype }}</a></td>
+              <td>{{ lesion.lesion_volume_ml }}  </td>
+              <td> {{ lesion.lesion_biopsy}} </td>
+              <td><a href="{% url 'liverdata:lesion_detail' lesion.id %}" class="btn btn-primary btn-sm" role="button">View Details</a></td>
             </tr>
             {% endfor %}
           </tbody>
           {% else %}
-          <h3> No treatments are available </h3> {% endif %}
+          <h3> No lesions are available</h3> {% endif %}
         </table>
       </div>
     </div>
