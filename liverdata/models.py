@@ -25,6 +25,7 @@ class Lesion(models.Model):
     lesiontype = models.ForeignKey(LesionType, on_delete = models.PROTECT, null=True, blank=False) # can be non-existent, but not blank
     lesion_volume_ml = models.DecimalField(max_digits=10, decimal_places=2, blank=True) #optional field
     lesion_biopsy = models.BooleanField(default=False) # choice field, y/n
+    lesion_nr = models.PositiveIntegerField(null=True, blank=True)
 
 
     def __str__(self):
@@ -81,10 +82,26 @@ class Device(models.Model):
         verbose_name_plural = "Device"
 
 
+class Trajectory(models.Model):
+    parent_trajectory = models.ForeignKey('self', null=True, blank=True, on_delete=models.PROTECT) # recursive relationship for reference trajectory
+    entrypoint_planned = models.CharField(max_length=500)
+    targetpoint_planned = models.CharField(max_length=500)
+    entrypoint_measured = models.CharField(max_length=500)
+    targetpoint_measured = models.CharField(max_length=500)
+    trajectory_nr = models.PositiveIntegerField(null=True, blank=True)
+
+
+    def __str__(self):
+        return "Trajectory Nr:" + str(self.trajectory_nr)
+
+    class Meta:
+        verbose_name_plural = "Trajectory"
+
 
 class MWA(models.Model):
     treatment = models.OneToOneField(Treatment, blank=True, null=True, on_delete=models.CASCADE)
     device = models.ForeignKey(Device, blank=True, null=True, on_delete=models.CASCADE)
+    trajectory_id = models.OneToOneField(Trajectory, blank=True, null=True) # sholdn't be a optional relationship, modify it later
     power = models.PositiveIntegerField() # power or temperature applied
     time_duration = models.DurationField()
 
@@ -97,6 +114,7 @@ class MWA(models.Model):
 class RFA(models.Model):
     treatment = models.OneToOneField(Treatment, blank=True, null=True, on_delete=models.CASCADE)
     device = models.ForeignKey(Device, blank=True, null=True, on_delete=models.CASCADE)
+    trajectory_id = models.OneToOneField(Trajectory, blank=True, null=True)
     power = models.PositiveIntegerField() # power or temperature applied
     time_duration = models.DurationField()
 
@@ -109,6 +127,7 @@ class RFA(models.Model):
 class IRE(models.Model):
     treatment = models.OneToOneField(Treatment, blank=True, null=True, on_delete=models.CASCADE)
     device = models.ForeignKey(Device, blank=True, null=True, on_delete=models.CASCADE)
+    trajectory_id = models.OneToOneField(Trajectory, blank=True, null=True)
     power = models.PositiveIntegerField() # power or temperature applied
     time_duration = models.DurationField()
 
