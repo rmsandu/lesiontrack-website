@@ -101,10 +101,24 @@ class Trajectory(models.Model):
 
 
     def __str__(self):
-        return "Trajectory Nr:" + str(self.trajectory_nr)
+        return "{0}-{1}".format(str(self.trajectory_nr), str(self.id))
 
     class Meta:
         verbose_name_plural = "Trajectory"
+
+
+class TPErrors(models.Model):
+    trajectory =  models.ForeignKey('Trajectory',on_delete=models.PROTECT)
+    lateralerror = models.CharField(max_length=500)
+    longerror = models.CharField(max_length=500)
+    angularerror = models.CharField(max_length=500)
+    residualerror = models.CharField(max_length=500)
+
+    def __str__(self):
+        return "residualerror = " + self.residualerror
+
+    class Meta:
+        verbose_name_plural = "TPErrors"
 
 
 class MWA(models.Model):

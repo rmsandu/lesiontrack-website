@@ -2,10 +2,6 @@ from django.contrib import admin
 from .models import *
 
 # Register your models here.
-#admin.site.register(Patient)
-#admin.site.register(Lesion)
-# admin.site.register(TreatmentSession)
-# admin.site.register(Treatment)
 
 class PatientAdmin(admin.ModelAdmin):
     list_display = ('patient_name', 'yearofbirth', 'date_of_death', 'study_institution', 'study_name')
@@ -23,11 +19,30 @@ class TreatmentAdmin(admin.ModelAdmin):
     list_display = ('treatmentname','treatmentsession','lesion')
 admin.site.register(Treatment, TreatmentAdmin)
 
+class DeviceAdmin(admin.ModelAdmin):
+    list_display = ('manufacturer', 'needle_name')
+admin.site.register(Device, DeviceAdmin)
 
-admin.site.register(Device)
-admin.site.register(RFA)
-admin.site.register(IRE)
-admin.site.register(MWA)
+class MWAAdmin(admin.ModelAdmin):
+    list_display = ('treatment', 'device', 'power', 'time_duration')
+admin.site.register(MWA, MWAAdmin)
+
+class RFAAdmin(admin.ModelAdmin):
+    list_display = ('treatment', 'device', 'power', 'time_duration')
+admin.site.register(RFA, RFAAdmin)
+
+class IREAdmin(admin.ModelAdmin):
+    list_display = ('treatment', 'device', 'power', 'time_duration')
+admin.site.register(IRE, MWAAdmin)
+
+class TrajectoryAdmin(admin.ModelAdmin):
+    list_display = ('parent_trajectory', 'entrypoint_planned','targetpoint_planned', 'entrypoint_measured', 'targetpoint_measured','trajectory_nr')
+admin.site.register(Trajectory, TrajectoryAdmin)
+
+class TPErrorsAdmin(admin.ModelAdmin):
+    list_display = ('trajectory', 'lateralerror', 'longerror', 'angularerror', 'residualerror')
+admin.site.register(TPErrors,TPErrorsAdmin)
+
+
 admin.site.register(TreatmentName)
 admin.site.register(LesionType)
-admin.site.register(Trajectory)
