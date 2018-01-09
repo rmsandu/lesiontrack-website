@@ -109,13 +109,13 @@ class Trajectory(models.Model):
 
 class TPErrors(models.Model):
     trajectory =  models.ForeignKey('Trajectory',on_delete=models.PROTECT)
-    lateralerror = models.CharField(max_length=500)
-    longerror = models.CharField(max_length=500)
-    angularerror = models.CharField(max_length=500)
-    residualerror = models.CharField(max_length=500)
+    lateralerror = models.FloatField(max_length=500)
+    longerror = models.FloatField(max_length=500)
+    angularerror = models.FloatField(max_length=500)
+    residualerror = models.FloatField(max_length=500)
 
     def __str__(self):
-        return "residualerror = " + self.residualerror
+        return "residualerror = " + str(self.residualerror)
 
     class Meta:
         verbose_name_plural = "TPErrors"

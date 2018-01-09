@@ -1,25 +1,44 @@
-{% extends 'liverdata/base.html' %}
-
-
-{% block body %} {% block title %}
-<h2>A lot of nothing.... </h2>{% endblock %}
+{% extends 'liverdata/base.html' %} {% block body %} {% block title %}
+<h2></h2>{% endblock %}
 <div class="container-fluid patients-container">
   <div class="row content">
     <div class="col-sm-2 sidenav">
-      <!-- <div  class = "well">
-        <p><a href="#">Link</a></p>
-        <p><a href="#">Link</a></p>
-        <p><a href="#">Link</a></p>
+
+          <img src="/static/liverdata/images/hipernavLogo.png">
+
+  </div>
+
+
+    <div class="col-sm-8 text-left">&nbsp;
+      <div class="jumbotron">
+      <h3>Welcome to LIT - <strong>Liver Lesion Tracking</strong> - database application</h3>
+      <br>
+      <ul class="list_group">
+        <li class="list-group-item"><strong>Number of patients: </strong>{{ num_patients}}</li>
+          <li class="list-group-item"> <strong>Number of lesions:</strong>{{ num_lesions }}</li>
+          <li class="list-group-item"> <strong>Number of RFA ablations:</strong>{{ num_rfa_ablations }}</li>
+          <li class="list-group-item"> <strong>Number of Interventions:</strong>{{ num_ir}}</li>
+      </ul>
+
+</div>
+    </div>
+
+    <!-- <div class="col-sm-2 sidenav">
+      <div class="well">
+        <p></p>
+      </div>
     </div> -->
-  </div>
 
-  <div class="col-sm-8 text-left">&nbsp;
-    WHATEVER YOU WANT TO PUT here
-  </div>
-
-    <div class="col-sm-2 sidenav">
-      <!-- <div class="well">
-        <p>Link</p>
-      </div> -->
+    <div class="footer navbar-fixed-bottom">
+      <div class="well">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-10 col-xs-12"></div>
+            <div class="col-md-2 col-xs-12">
+              <img src="http://www.artorg.unibe.ch/unibe/portal/fak_medizin/dept_weitere/ins_artorg/content/WEBuseonly_ARTORG_DD3601_eng.gif">
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
     {% endblock %}
